@@ -5,8 +5,45 @@ body{
     font-family: 'Poppins', sans-serif;
   background-color: #f4f4f9;
   color: #222;
+  width: 100vw;
 
 }
+
+
+#cookie-banner {
+  position: fixed;       /* Toujours visible au-dessus */
+  bottom: 0;             /* Collé en bas de l'écran */
+  left: 0;
+  width: 100%;           /* Prend toute la largeur */
+  background-color: rgba(0, 0, 0, 0.9);  /* Semi-transparent noir */
+  color: white;
+  text-align: center;
+  padding: 15px;
+  z-index: 1000;         /* Au-dessus de tout */
+  font-size: 16px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+  box-shadow: 0 -2px 10px rgba(0,0,0,0.3);
+}
+
+#cookie-banner button {
+  padding: 8px 15px;
+  border: none;
+  border-radius: 5px;
+  background-color: white;
+  color: black;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+#cookie-banner button:hover {
+  background-color: #222;
+  color: white;
+}
+
 
 header{
 
@@ -17,17 +54,25 @@ header{
     padding : 25px 350px 25px 30px;
     background-color: black ;
     color: white;
+    text-decoration: none;
 
 }
 
 .logo{
     background-color: white;
     font-weight: bold;
-    border-radius: 30px;
-    padding : 10px;
+    border-radius: 25px;
+    padding : 12px;
     color: black;
+    display: flex;
+    align-items: center;
 }
 
+.logo-img img{
+  max-width: 40px;
+
+
+}
 nav ul{
    display : flex; 
     align-items: center;
@@ -42,18 +87,90 @@ nav a {
       color: white;
     list-style: none;
     font-weight: bold;
+    text-decoration: none;
+
+
+
+}
+
+
+.zone {
+  position: absolute; 
+  top: 0;
+  left: 0;
+  width: 32.73%;
+  height: 100%;   
+  cursor: pointer;
+transition: background-color 0.3s ease;
+
+
+  display: flex;
+  justify-content: flex-start; 
+  align-items: center;   
+  padding-left: 250px;    
+  font-size: 50px;
+    color: white;           /* couleur du texte */
+  text-decoration: none;
+  background-color: rgba(0,0,0,0);  /* zone invisible */
+  font-size: 1.5rem;
+
+  opacity: 0;             /* texte invisible par défaut */
+  transition: opacity 0.3s ease, background-color 0.3s ease;
+
+   /* centre le texte multi-lignes */
+}
+
+.zone.course{
+    left: 0;
+  width: 33.33%;
+}
+
+.zone.course:hover{
+    background-color: rgba(20, 0, 245, 0.2);
+        opacity: 1;
+}
+
+.zone.velo{
+      left: 45.73%; 
+      width: 15%;     /* largeur de la zone */
+
+}
+
+.zone.velo:hover{
+   
+        
+          background-color: rgba(20, 0, 245, 0.2);
+              opacity: 1;
+
+}
+
+.zone.natation{
+    
+      left: 71.33%;
+      color: white;
+      padding-right: 300px;   
+  width: 20px;
+}
+
+
+.zone.natation:hover{
+    background-color: rgba(20, 0, 245, 0.2);
+    opacity: 1;
+  
 }
 
 .hero-img {
-  width: auto;
+
   height: 50vh; 
   overflow: hidden;
+  position: relative;
+  width: 100vw;
 }
 
 .hero-img img {
   width: 100%;
   height: 100%;
-
+ 
 
 }
 
@@ -74,6 +191,62 @@ nav a {
   color: black;
 }
 
+.hero-text-rej{
+  position: relative;
+  align-items: flex-start;
+  margin : 30px 0px 100px 0px ;
+  padding-left: 0px;
+  width: 100vw;
+  display: flex;
+  
+}
+.hero-text-rej-img{
+  width: 100%;
+  height: 30vh ;
+  object-fit: cover;
+  
+
+}
+.hero-text-rej-desc{
+  position: absolute;
+  color: black;
+  left: 50%;
+  margin-right: 20px;
+  top: 25%;
+  font-size: 20px;
+}
+
+.hero-text-rej-img img{
+max-height: 500px;
+width: 100%;
+}
+.btn-main {
+  display: inline-block;
+  background-color: black;
+  color: white;
+  padding: 12px 25px;
+  margin-top: 35px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: bold;
+  transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease;
+}
+
+.btn-main:hover {
+  background-color: white;
+  color: black;
+  transform: scale(1.05); /* léger agrandissement au survol */
+}
+.hero-text-rej-p {
+  position: absolute;
+  top: 25%;
+  padding-left: 30px;
+  color: white;
+  font-size: 17px;
+  font-weight: bold;
+}
+
+
 .hero-text {
   display: flex;
   flex-direction: column;
@@ -85,4 +258,85 @@ nav a {
 
 .hero-text p{
     margin : 0px 30px 0px 30px ;
+}
+
+
+footer{
+  background-color: black;
+  color: white;
+  margin-top: 25%; 
+  padding-top: 4%;
+  padding-left: 10px;
+  padding-bottom: 20px;
+  
+}
+
+
+.footer-liste{
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 500px;
+  margin-bottom: 30px;
+  margin: 0 80px 50px 80px ;
+}
+
+.footer-serviceClient{
+display: flex;
+flex-direction: column;
+gap: 10px;
+
+}
+
+.footer-Societe{
+  display: flex;
+flex-direction: column;
+gap: 10px;
+}
+footer a{
+  text-decoration: none;
+  color: white;
+}
+
+footer ul{
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  margin-bottom: 5%;
+}
+
+footer span{
+  font-size: large;
+  text-transform: uppercase;
+  
+}
+
+.footer-information{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin : 0 20px;  
+  font-weight: bold;
+}
+
+.footer-information-logoRéseaux ul{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 25px;
+}
+.footer-information img{
+  max-width: 30px;
+
+}
+
+hr{
+  height: 2px;
+  background-color: white;
+  margin: 0 8px 15px 8px;
+}
+
+.footer-cookie{
+  padding-left: 15px;
+  font-weight: bold;
 }
