@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Natation - TriConnect</title>
+    
+    <link rel="stylesheet" href="style2.css">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+    <header>
+        <div class="logo">TriConnect</div>
+        <nav>
+            <ul>
+                <li><a href="index.html">Accueil</a></li>
+                <li><a href="discussions.html">Discussions</a></li>
+                <li><a href="suivi.html">Suivi</a></li>
+                <li><a href="natation.html" class="active">Natation</a></li>
+                <li><a href="profil.html">Profil</a></li>
+                <li><a href="connexion.html" class="btn-nav">Connexion</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="hero-section">
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-icon"><i class="fa-solid fa-person-swimming"></i></div>
+                <h1>Natation</h1>
+                <p>Perfectionnez votre technique, suivez vos progrès et échangez avec la communauté de nageurs TriConnect.</p>
+            </div>
+        </div>
+    </section>
+
+    <main class="container">
+        
+        <section class="section">
+            <h2><i class="fa-solid fa-chart-line"></i> Tableau de Bord</h2>
+            <div class="health-dashboard">
+                <div class="health-card">
+                    <h3><i class="fa-solid fa-heart-pulse"></i> Condition Physique</h3>
+                    <div class="data-row"><span>Niveau :</span> <span class="data-value" id="fitness-level">Analyse en cours...</span></div>
+                    <div class="data-row"><span>FC Repos :</span> <span class="data-value" id="resting-hr">-- bpm</span></div>
+                    <div class="data-row"><span>VO2 Max :</span> <span class="data-value" id="vo2-max">--</span></div>
+                </div>
+                
+                <div class="health-card">
+                    <h3><i class="fa-solid fa-stopwatch"></i> Technique</h3>
+                    <div class="data-row"><span>Style :</span> <span class="data-value">Crawl</span></div>
+                    <div class="data-row"><span>Efficacité :</span> <span class="data-value" id="swolf-score">-- SWOLF</span></div>
+                    <div class="data-row"><span>Allure moy. :</span> <span class="data-value">-- /100m</span></div>
+                </div>
+
+                <div class="health-card">
+                    <h3><i class="fa-solid fa-bullseye"></i> Objectifs</h3>
+                    <div class="data-row"><span>Cible :</span> <span class="data-value">Ironman 70.3</span></div>
+                    <div class="data-row"><span>Échéance :</span> <span class="data-value">12 semaines</span></div>
+                    <div class="data-row"><span>Progression :</span> <span class="data-value">0%</span></div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2><i class="fa-solid fa-clipboard-list"></i> Générateur de Programme</h2>
+            <p style="margin-bottom: 2rem; color: #666;">Complétez cette évaluation pour recevoir un programme adapté à votre physiologie.</p>
+            
+            <form class="questionnaire-form">
+                <div class="form-group">
+                    <label for="experience">Expérience en natation</label>
+                    <select id="experience" name="experience">
+                        <option value="">Sélectionnez votre niveau</option>
+                        <option value="debutant">Débutant (< 6 mois)</option>
+                        <option value="intermediaire">Intermédiaire (6 mois - 2 ans)</option>
+                        <option value="avance">Avancé (2-5 ans)</option>
+                        <option value="expert">Expert (5+ ans)</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="swim-distance">Distance max en continu</label>
+                    <select id="swim-distance" name="swim-distance">
+                        <option value="">Sélectionnez une distance</option>
+                        <option value="short">100-300m</option>
+                        <option value="medium">400-800m</option>
+                        <option value="long">800m-1.5km</option>
+                        <option value="ultra">1.5km et plus</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="goals">Objectifs principaux</label>
+                    <textarea id="goals" name="goals" rows="3" placeholder="Ex: Améliorer la respiration, préparer un triathlon M..."></textarea>
+                </div>
+
+                <div style="text-align: right;">
+                    <button type="submit" class="btn">Générer le programme</button>
+                </div>
+            </form>
+        </section>
+
+        <section class="section">
+            <div class="forum-header">
+                <h2><i class="fa-solid fa-comments"></i> Discussions Récentes</h2>
+                <button class="btn btn-secondary">Nouveau Sujet</button>
+            </div>
+
+            <div class="forum-content">
+                <div class="forum-post">
+                    <div class="post-header">
+                        <div>
+                            <strong>Marie_Swim92</strong> <span class="user-tag">Intermédiaire</span>
+                        </div>
+                        <small>Il y a 2h</small>
+                    </div>
+                    <h4>Conseils pour améliorer ma respiration bilatérale ?</h4>
+                    <p style="color: #555; font-size: 0.95rem;">Je prépare mon premier triathlon olympique et je m'essouffle vite...</p>
+                    <div class="post-stats" style="margin-top: 10px;">
+                        <span><i class="fa-regular fa-comment"></i> 8 réponses</span>
+                        <span><i class="fa-regular fa-thumbs-up"></i> 15 likes</span>
+                    </div>
+                </div>
+
+                <div class="forum-post">
+                    <div class="post-header">
+                        <div>
+                            <strong>TriathlonPro_Coach</strong> <span class="user-tag">Expert</span>
+                        </div>
+                        <small>Il y a 4h</small>
+                    </div>
+                    <h4>Programme 12 semaines pour Ironman - Natation</h4>
+                    <p style="color: #555; font-size: 0.95rem;">Je partage mon fichier Excel de progression volume/intensité.</p>
+                    <div class="post-stats" style="margin-top: 10px;">
+                        <span><i class="fa-regular fa-comment"></i> 23 réponses</span>
+                        <span><i class="fa-regular fa-thumbs-up"></i> 67 likes</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div style="text-align: center; margin-top: 2rem;">
+                <a href="#" class="btn btn-secondary">Voir tout le forum</a>
+            </div>
+        </section>
+
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 TriConnect - Performance & Communauté</p>
+        </div>
+    </footer>
+
+</body>
+</html>
