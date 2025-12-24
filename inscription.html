@@ -1,0 +1,62 @@
+
+
+
+<p><!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Inscription - TriConnect</title>
+  <link rel="stylesheet" href="inscription.css">
+</head>
+<body>
+    <div id="cookie-banner">
+  <p>Nous utilisons des cookies pour améliorer votre expérience. 
+     <button id="accept-cookies">Accepter</button>
+  </p>
+</div>
+  <header>
+    <div class="logo">
+      <div class="logo-img">
+        <img src="logo.png" alt="Logo TriConnect">
+      </div>
+      <div class="logo-nom">TriConnect</div>
+    </div>
+    <nav>
+      <ul>
+        <li><a href="sport.html">Accueil</a></li>
+        <li><a href="#">Discussions</a></li>
+        <li><a href="#">Suivi</a></li>
+        <li><a href="#">Profil</a></li>
+        <li><a href="connexion.html" class="btn">Connexion</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <div class="signup-container">
+    <div class="signup-box">
+      <h1>Créer un compte</h1>
+      <form action="traitement_inscription.php" method="POST">
+        <label for="prenom">Prénom</label>
+        <input type="text" id="prenom" name="prenom" placeholder="Votre prénom" required>
+
+        <label for="nom">Nom</label>
+        <input type="text" id="nom" name="nom" placeholder="Votre nom" required>
+
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email" placeholder="votre@email.com" required>
+
+        <label for="password">Mot de passe</label>
+        <input type="password" id="password" name="password" placeholder="••••••••" required>
+
+        <label for="confirm">Confirmer le mot de passe</label>
+        <input type="password" id="confirm" name="confirm" placeholder="••••••••" required>
+
+        <button type="submit" class="btn-signup">S’inscrire</button>
+      </form>
+      <p class="login-text">Déjà un compte ? <a href="connexion.html">Connectez-vous</a></p>
+    </div>
+  </div>
+</body>
+<script src="fichier.js"></script>
+</html>
