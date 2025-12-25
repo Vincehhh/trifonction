@@ -124,7 +124,7 @@ transition: background-color 0.3s ease;
 }
 
 .zone.course:hover{
-    background-color: rgba(20, 0, 245, 0.2);
+    background-color: rgba(30, 29, 33, 0.2);
         opacity: 1;
 }
 
@@ -137,7 +137,7 @@ transition: background-color 0.3s ease;
 .zone.velo:hover{
    
         
-          background-color: rgba(20, 0, 245, 0.2);
+          background-color: rgba(30, 29, 33, 0.2);
               opacity: 1;
 
 }
@@ -152,7 +152,7 @@ transition: background-color 0.3s ease;
 
 
 .zone.natation:hover{
-    background-color: rgba(20, 0, 245, 0.2);
+    background-color:  rgba(30, 29, 33, 0.2);
     opacity: 1;
   
 }
