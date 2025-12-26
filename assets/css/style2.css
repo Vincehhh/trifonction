@@ -7,7 +7,7 @@
 
 body {
     font-family: 'Roboto', 'Helvetica Neue', Arial, sans-serif; 
-    background-color: #f0f2f5; 
+    background-color: black; 
     color: #333;
     line-height: 1.6;
     overflow-x: hidden;
@@ -48,11 +48,17 @@ body {
 }
 
 
-
 :root {
-    --garmin-black: black; 
-    --border-color: #e1e1e1;
-    --white: #ffffff;
+    /* Fond sombre profond mais légèrement bleuté pour éviter le noir "plat" */
+    --bg-color: #0a0a0a; 
+    --text-color: #ffffff;
+    
+    /* NOUVEAU : Le Néon Blanc Puissant */
+    --main-color: #ffffff; 
+    --neon-glow: 0 0 10px rgba(255, 255, 255, 0.8), 0 0 20px rgba(255, 255, 255, 0.4), 0 0 30px rgba(255, 255, 255, 0.1);
+    
+    /* Une couleur secondaire discrète (gris bleuté) pour les textes moins importants */
+    --text-muted: #b0b0b0;
 }
 
 a {
@@ -127,9 +133,21 @@ nav a {
 
 
 .container {
+    padding-top: 70px;
     max-width: 1200px;
     margin: 0 auto;
     padding: 0 20px;
+}
+
+.hero-section {
+    background: url('../img/hero-bg.jpg') no-repeat center center/cover;
+    color: white;
+    padding: 80px 20px;
+    text-align: center;
+    background-color:black;
+    border-radius: 0px; 
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    margin-bottom: 40px;
 }
 
 .section {
@@ -379,4 +397,530 @@ hr{
 .footer-cookie{
   padding-left: 15px;
   font-weight: bold;
+}
+
+
+
+
+.dashboard-section {
+    background: black ;
+    overflow: hidden;
+    position: relative;
+    border: none;
+}
+
+.dashboard-section h2 {
+    color: #fff;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    margin-bottom: 40px;
+    text-shadow: 0 0 10px rgba(229, 235, 235, 0.5);
+    border: none;
+}
+
+.dash-3d-container {
+    perspective: 1000px;
+    width: 100%;
+    max-width: 400px;
+    height: 500px;
+    margin: 0 auto;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.dash-scene {
+    position: relative;
+    width: 100%;
+    height: 400px;
+    transform-style: preserve-3d;
+}
+
+
+.dash-card {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 20px;
+    transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+    opacity: 0;
+    pointer-events: none;
+    transform: translateZ(-200px) translateY(0) rotateY(0deg); 
+}
+
+/* L'intérieur de la carte (Effet Verre Blanc Lumineux) */
+.card-glass {
+    width: 100%;
+    height: 100%;
+    /* Fond plus clair et plus transparent */
+    background: rgba(255, 255, 255, 0.03);
+    backdrop-filter: blur(15px);
+    /* Bordure blanche lumineuse */
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    border-radius: 20px;
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: var(--text-color);
+    /* Lueur blanche externe intense */
+    box-shadow: var(--neon-glow), inset 0 0 20px rgba(255, 255, 255, 0.05);
+}
+
+.dash-card.active .card-glass {
+    border-color: #ffffff;
+    /* Quand la carte est active, elle brille encore plus */
+    box-shadow: 0 0 25px rgba(255, 255, 255, 0.6), inset 0 0 10px rgba(255, 255, 255, 0.2);
+}
+
+/* Icone blanche qui brille */
+.card-icon {
+    font-size: 3rem;
+    margin-bottom: 20px;
+    color: #ffffff;
+    transform: translateZ(50px);
+    /* Ombre portée blanche */
+    filter: drop-shadow(0 0 15px rgba(255, 255, 255, 0.9)); 
+    transition: transform 0.3s;
+}
+
+.bar-fill {
+    height: 100%;
+    background: #ffffff; /* Barre de progression blanche */
+    border-radius: 4px;
+    box-shadow: 0 0 15px #ffffff; /* La barre brille */
+}
+
+.dash-card:hover .card-icon {
+    transform: translateZ(80px) scale(1.1); 
+}
+
+.dash-card h3 {
+    font-size: 1.5rem;
+    margin-bottom: 30px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.stats-group {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.stat-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 1rem;
+}
+
+.bar-container {
+    width: 50%;
+    height: 8px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.bar-fill {
+    height: 100%;
+    background: #ccd2d2;
+    border-radius: 4px;
+    box-shadow: 0 0 10px currentColor;
+}
+
+.dash-card.active {
+    opacity: 1;
+    pointer-events: all;
+    transform: translateZ(0) translateX(0) rotateY(0deg);
+    z-index: 10;
+}
+
+.dash-card.next {
+    opacity: 0.6;
+    transform: translateZ(-100px) translateX(60%) rotateY(-20deg);
+    z-index: 5;
+    filter: blur(2px);
+}
+
+.dash-card.prev {
+    opacity: 0.6;
+    transform: translateZ(-100px) translateX(-60%) rotateY(20deg);
+    z-index: 5;
+    filter: blur(2px);
+}
+
+
+
+.dash-controls {
+    margin-top: 30px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.control-btn {
+    background: transparent;
+    border: 2px solid #dde4e4;
+    color: #dae5e6;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 1.2rem;
+    transition: 0.3s;
+}
+
+.control-btn:hover {
+    background: #c4c8c8;
+    color: #fff;
+    box-shadow: 0 0 15px #cccece;
+}
+
+.dash-indicators {
+    display: flex;
+    gap: 10px;
+}
+
+.dash-indicators .dot {
+    width: 10px;
+    height: 10px;
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+}
+
+.dash-indicators .dot.active {
+    background: #bfc3c3;
+    box-shadow: 0 0 10px #b5b8b8;
+}
+
+
+.futuristic-section .neon-title {
+    color: #ffffff !important;
+    font-size: 2.2rem; 
+    margin-bottom: 2.5rem; 
+    text-shadow: 
+        0 0 10px rgba(255, 255, 255, 0.9),
+        0 0 20px rgba(255, 255, 255, 0.6);
+    display: flex;
+    align-items: center;
+    gap: 20px; 
+}
+
+.futuristic-section .section-desc {
+    margin-bottom: 4rem; 
+    font-size: 1.1rem;
+    color: var(--text-muted);
+}
+
+
+.glass-container {
+    padding: 4rem;
+    margin-bottom: 3rem;
+}
+
+
+.form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    margin-bottom: 2.5rem;
+}
+
+.form-group {
+    margin-bottom: 2rem;
+}
+
+.full-width {
+    margin-top: 1rem;
+    margin-bottom: 3rem; 
+}
+
+
+.form-action {
+    margin-top: 2rem;
+    display: flex;
+    justify-content: center; 
+}
+.questionnaire-form input,
+.questionnaire-form select,
+.questionnaire-form textarea {
+    width: 100%;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    color: #fff;
+    padding: 15px;
+    border-radius: 8px;
+    font-family: 'Poppins', sans-serif;
+    transition: all 0.3s ease;
+}
+
+.questionnaire-form input:focus,
+.questionnaire-form select:focus,
+.questionnaire-form textarea:focus {
+    outline: none;
+    border-color: #ffffff;
+    background: rgba(255, 255, 255, 0.1);
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.5); 
+}
+
+.btn-neon {
+    background: transparent;
+    border: 2px solid #ffffff;
+    color: #ffffff;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.2); 
+    text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+
+}
+
+.btn-neon:hover {
+    background: #ffffff;
+    color: #000;
+    box-shadow: 0 0 30px #ffffff;
+    border-color: #ffffff;
+}
+
+.forum-card:hover {
+    transform: translateY(-5px);
+    border-color: #ffffff;
+    border-left: 3px solid #ffffff;
+    box-shadow: 0 10px 40px rgba(255, 255, 255, 0.15); 
+}
+
+
+
+
+.form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    margin-bottom: 2rem;
+}
+
+@media (max-width: 768px) {
+    .form-grid { grid-template-columns: 1fr; }
+}
+
+.form-group label {
+    color: var(--main-color);
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 0.8rem;
+    display: block;
+}
+
+/* Inputs & Selects */
+.questionnaire-form input,
+.questionnaire-form select,
+.questionnaire-form textarea {
+    width: 100%;
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid #333;
+    color: #fff;
+    padding: 15px;
+    border-radius: 8px;
+    font-family: 'Poppins', sans-serif;
+    transition: all 0.3s ease;
+    appearance: none; /* Supprime le style par défaut du navigateur */
+}
+
+/* Focus : Lueur néon */
+.questionnaire-form input:focus,
+.questionnaire-form select:focus,
+.questionnaire-form textarea:focus {
+    outline: none;
+    border-color: var(--main-color);
+    box-shadow: 0 0 15px rgba(0, 171, 173, 0.3);
+    background: rgba(0, 171, 173, 0.05);
+}
+
+.select-wrapper {
+    position: relative;
+}
+
+.arrow-icon {
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--main-color);
+    pointer-events: none;
+}
+
+/* Bouton Néon Principal */
+.btn-neon {
+    background: transparent;
+    border: 2px solid var(--main-color);
+    color: var(--main-color);
+    padding: 15px 40px;
+    font-size: 1.1rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-weight: 700;
+    border-radius: 50px;
+    position: relative;
+    overflow: hidden;
+    transition: 0.4s;
+    width: 100%;
+}
+
+.btn-neon:hover {
+    background: var(--main-color);
+    color: #000;
+    box-shadow: 0 0 20px var(--main-color);
+    transform: translateY(-2px);
+}
+
+
+/* --- FORUM CARTES --- */
+.forum-header-flex {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.forum-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+    margin-bottom: 40px;
+}
+
+.forum-card {
+    padding: 1.5rem;
+    transition: transform 0.3s, border-color 0.3s;
+    cursor: pointer;
+    border-left: 3px solid transparent;
+}
+
+.forum-card:hover {
+    transform: translateY(-5px);
+    border-color: rgba(255, 255, 255, 0.2);
+    border-left: 3px solid var(--main-color);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+.expert-card:hover {
+    border-left: 3px solid #ffd700; /* Or pour les experts */
+}
+
+.post-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 15px;
+}
+
+.user-info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.avatar-circle {
+    width: 40px;
+    height: 40px;
+    background: #2a2a35;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    color: var(--main-color);
+    border: 1px solid rgba(255,255,255,0.1);
+}
+
+.avatar-circle.expert {
+    color: #ffd700;
+    border-color: rgba(255, 215, 0, 0.3);
+}
+
+.user-info strong {
+    color: #fff;
+    display: block;
+    font-size: 0.9rem;
+}
+
+.badge {
+    font-size: 0.7rem;
+    padding: 2px 6px;
+    border-radius: 4px;
+    text-transform: uppercase;
+}
+
+.badge-blue { background: rgba(0, 171, 173, 0.2); color: var(--main-color); }
+.badge-gold { background: rgba(255, 215, 0, 0.2); color: #ffd700; }
+
+.time-stamp {
+    color: #666;
+    font-size: 0.8rem;
+}
+
+.post-title {
+    color: #fff;
+    margin-bottom: 10px;
+    font-size: 1.1rem;
+}
+
+.post-excerpt {
+    color: #aaa;
+    font-size: 0.9rem;
+    line-height: 1.5;
+    margin-bottom: 20px;
+}
+
+.post-footer {
+    display: flex;
+    gap: 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    padding-top: 15px;
+}
+
+.interaction {
+    color: #666;
+    font-size: 0.85rem;
+    transition: 0.3s;
+}
+
+.forum-card:hover .interaction {
+    color: var(--main-color);
+}
+
+/* Boutons secondaires */
+.btn-outline-neon {
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: #fff;
+    padding: 8px 20px;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.btn-outline-neon:hover {
+    border-color: var(--main-color);
+    color: var(--main-color);
+}
+
+.link-neon {
+    color: var(--main-color);
+    text-decoration: none;
+    font-weight: 600;
+    transition: 0.3s;
+}
+
+.link-neon:hover {
+    color: #fff;
+    letter-spacing: 1px;
+}
+
+.center-btn {
+    text-align: center;
+    margin-top: 20px;
 }

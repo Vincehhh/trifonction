@@ -37,126 +37,227 @@
     <section class="hero-section">
         <div class="container">
             <div class="hero-content">
-                <div class="hero-icon"><i class="fa-solid fa-person-swimming"></i></div>
                 <h1>Natation</h1>
                 <p>Perfectionnez votre technique, suivez vos progrès et échangez avec la communauté de nageurs TriConnect.</p>
             </div>
         </div>
     </section>
-
     <main class="container">
         
-        <section class="section">
-            <h2><i class="fa-solid fa-chart-line"></i> Tableau de Bord</h2>
-            <div class="health-dashboard">
-                <div class="health-card">
-                    <h3><i class="fa-solid fa-heart-pulse"></i> Condition Physique</h3>
-                    <div class="data-row"><span>Niveau :</span> <span class="data-value" id="fitness-level">Analyse en cours...</span></div>
-                    <div class="data-row"><span>FC Repos :</span> <span class="data-value" id="resting-hr">-- bpm</span></div>
-                    <div class="data-row"><span>VO2 Max :</span> <span class="data-value" id="vo2-max">--</span></div>
-                </div>
-                
-                <div class="health-card">
-                    <h3><i class="fa-solid fa-stopwatch"></i> Technique</h3>
-                    <div class="data-row"><span>Style :</span> <span class="data-value">Crawl</span></div>
-                    <div class="data-row"><span>Efficacité :</span> <span class="data-value" id="swolf-score">-- SWOLF</span></div>
-                    <div class="data-row"><span>Allure moy. :</span> <span class="data-value">-- /100m</span></div>
-                </div>
 
-                <div class="health-card">
-                    <h3><i class="fa-solid fa-bullseye"></i> Objectifs</h3>
-                    <div class="data-row"><span>Cible :</span> <span class="data-value">Ironman 70.3</span></div>
-                    <div class="data-row"><span>Échéance :</span> <span class="data-value">12 semaines</span></div>
-                    <div class="data-row"><span>Progression :</span> <span class="data-value">0%</span></div>
-                </div>
-            </div>
-        </section>
 
-        <section class="section">
-            <h2><i class="fa-solid fa-clipboard-list"></i> Générateur de Programme</h2>
-            <p style="margin-bottom: 2rem; color: #666;">Complétez cette évaluation pour recevoir un programme adapté à votre physiologie.</p>
+     <section class="section dashboard-section">
+    <h2>Suivi des performances</h2>
+    
+    <div class="dash-3d-container">
+        <div class="dash-scene">
             
-            <form class="questionnaire-form">
-                <div class="form-group">
-                    <label for="experience">Expérience en natation</label>
-                    <select id="experience" name="experience">
-                        <option value="">Sélectionnez votre niveau</option>
-                        <option value="debutant">Débutant (< 6 mois)</option>
-                        <option value="intermediaire">Intermédiaire (6 mois - 2 ans)</option>
-                        <option value="avance">Avancé (2-5 ans)</option>
-                        <option value="expert">Expert (5+ ans)</option>
-                    </select>
-                </div>
-
-                <div class="form-group">
-                    <label for="swim-distance">Distance max en continu</label>
-                    <select id="swim-distance" name="swim-distance">
-                        <option value="">Sélectionnez une distance</option>
-                        <option value="short">100-300m</option>
-                        <option value="medium">400-800m</option>
-                        <option value="long">800m-1.5km</option>
-                        <option value="ultra">1.5km et plus</option>
-                    </select>
-                </div>
-
-                <div class="form-group">
-                    <label for="goals">Objectifs principaux</label>
-                    <textarea id="goals" name="goals" rows="3" placeholder="Ex: Améliorer la respiration, préparer un triathlon M..."></textarea>
-                </div>
-
-                <div style="text-align: right;">
-                    <button type="submit" class="btn">Générer le programme</button>
-                </div>
-            </form>
-        </section>
-
-        <section class="section">
-            <div class="forum-header">
-                <h2><i class="fa-solid fa-comments"></i> Discussions Récentes</h2>
-                <button class="btn btn-secondary">Nouveau Sujet</button>
-            </div>
-
-            <div class="forum-content">
-                <div class="forum-post">
-                    <div class="post-header">
-                        <div>
-                            <strong>Marie_Swim92</strong> <span class="user-tag">Intermédiaire</span>
+            <div class="dash-card active" data-index="0">
+                <div class="card-glass">
+                    <div class="card-icon"><i class="fa-solid fa-heart-pulse"></i></div>
+                    <h3>Condition Physique</h3>
+                    <div class="stats-group">
+                        <div class="stat-row">
+                            <span>Niveau</span>
+                            <div class="bar-container"><div class="bar-fill" style="width: 75%;"></div></div>
                         </div>
-                        <small>Il y a 2h</small>
-                    </div>
-                    <h4>Conseils pour améliorer ma respiration bilatérale ?</h4>
-                    <p style="color: #555; font-size: 0.95rem;">Je prépare mon premier triathlon olympique et je m'essouffle vite...</p>
-                    <div class="post-stats" style="margin-top: 10px;">
-                        <span><i class="fa-regular fa-comment"></i> 8 réponses</span>
-                        <span><i class="fa-regular fa-thumbs-up"></i> 15 likes</span>
-                    </div>
-                </div>
-
-                <div class="forum-post">
-                    <div class="post-header">
-                        <div>
-                            <strong>TriathlonPro_Coach</strong> <span class="user-tag">Expert</span>
+                        <div class="stat-row">
+                            <span>FC Repos</span>
+                            <strong>54 bpm</strong>
                         </div>
-                        <small>Il y a 4h</small>
-                    </div>
-                    <h4>Programme 12 semaines pour Ironman - Natation</h4>
-                    <p style="color: #555; font-size: 0.95rem;">Je partage mon fichier Excel de progression volume/intensité.</p>
-                    <div class="post-stats" style="margin-top: 10px;">
-                        <span><i class="fa-regular fa-comment"></i> 23 réponses</span>
-                        <span><i class="fa-regular fa-thumbs-up"></i> 67 likes</span>
+                        <div class="stat-row">
+                            <span>VO2 Max</span>
+                            <strong>48 ml/kg</strong>
+                        </div>
                     </div>
                 </div>
             </div>
-            
-            <div style="text-align: center; margin-top: 2rem;">
-                <a href="#" class="btn btn-secondary">Voir tout le forum</a>
-            </div>
-        </section>
 
+            <div class="dash-card next" data-index="1">
+                <div class="card-glass">
+                    <div class="card-icon"><i class="fa-solid fa-stopwatch"></i></div>
+                    <h3>Technique</h3>
+                    <div class="stats-group">
+                        <div class="stat-row">
+                            <span>Style</span>
+                            <strong>Crawl</strong>
+                        </div>
+                        <div class="stat-row">
+                            <span>SWOLF</span>
+                            <div class="bar-container"><div class="bar-fill" style="width: 60%; background: #00d2ff;"></div></div>
+                        </div>
+                        <div class="stat-row">
+                            <span>Allure</span>
+                            <strong>1:45 /100m</strong>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="dash-card" data-index="2">
+                <div class="card-glass">
+                    <div class="card-icon"><i class="fa-solid fa-bullseye"></i></div>
+                    <h3>Objectifs</h3>
+                    <div class="stats-group">
+                        <div class="stat-row">
+                            <span>Cible</span>
+                            <strong>Ironman 70.3</strong>
+                        </div>
+                        <div class="stat-row">
+                            <span>Échéance</span>
+                            <strong>12 semaines</strong>
+                        </div>
+                        <div class="stat-row">
+                            <span>Progression</span>
+                            <div class="bar-container"><div class="bar-fill" style="width: 30%; background: #ff0055;"></div></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="dash-card prev" data-index="3">
+                <div class="card-glass">
+                    <div class="card-icon"><i class="fa-solid fa-battery-half"></i></div>
+                    <h3>État Actuel</h3>
+                    <div class="stats-group">
+                        <div class="stat-row">
+                            <span>Fatigue</span>
+                            <div class="bar-container"><div class="bar-fill" style="width: 40%; background: #ffaa00;"></div></div>
+                        </div>
+                        <div class="stat-row">
+                            <span>Hydratation</span>
+                            <strong>OK</strong>
+                        </div>
+                        <div class="stat-row">
+                            <span>Récup.</span>
+                            <strong>85%</strong>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="dash-controls">
+            <button id="prev-dash" class="control-btn"><i class="fa-solid fa-chevron-left"></i></button>
+            <div class="dash-indicators">
+                <span class="dot active"></span>
+                <span class="dot"></span>
+                <span class="dot"></span>
+                <span class="dot"></span>
+            </div>
+            <button id="next-dash" class="control-btn"><i class="fa-solid fa-chevron-right"></i></button>
+        </div>
+    </div>
+</section>
+
+
+<section class="section futuristic-section" id="generator">
+    <div class="glass-container">
+        <h2 class="neon-title"><i class="fa-solid fa-microchip"></i> Générateur IA</h2>
+        <p class="section-desc">Analysez votre physiologie et générez un programme tactique sur mesure.</p>
+        
+        <form class="questionnaire-form">
+            <div class="form-grid">
+                <div class="form-group">
+                    <label for="experience">Niveau d'accréditation</label>
+                    <div class="select-wrapper">
+                        <select id="experience" name="experience">
+                            <option value="">Sélectionner...</option>
+                            <option value="debutant">Novice (Lvl 1)</option>
+                            <option value="intermediaire">Initié (Lvl 2)</option>
+                            <option value="avance">Élite (Lvl 3)</option>
+                            <option value="expert">Légende (Lvl 99)</option>
+                        </select>
+                        <i class="fa-solid fa-caret-down arrow-icon"></i>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="swim-distance">Endurance Max</label>
+                    <div class="select-wrapper">
+                        <select id="swim-distance" name="swim-distance">
+                            <option value="">Sélectionner...</option>
+                            <option value="short">Sprint (100-300m)</option>
+                            <option value="medium">Distance M (400-800m)</option>
+                            <option value="long">Longue Distance (1.5km)</option>
+                            <option value="ultra">Ultra (1.5km+)</option>
+                        </select>
+                        <i class="fa-solid fa-caret-down arrow-icon"></i>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group full-width">
+                <label for="goals">Paramètres de Mission</label>
+                <textarea id="goals" name="goals" rows="3" placeholder="Ex: Optimisation VO2 Max, Préparation Ironman, Correction technique bras gauche..."></textarea>
+            </div>
+
+            <div class="form-action">
+                <button type="submit" class="btn btn-neon">
+                    <span class="btn-text">Lancer la simulation</span>
+                    <span class="btn-glow"></span>
+                </button>
+            </div>
+        </form>
+    </div>
+</section>
+
+<section class="section futuristic-section" id="forum">
+    <div class="forum-header-flex">
+        <h2 class="neon-title"><i class="fa-solid fa-users-rays"></i> Flux Communautaire</h2>
+        <button class="btn btn-outline-neon">Nouveau Signal <i class="fa-solid fa-plus"></i></button>
+    </div>
+
+    <div class="forum-grid">
+        <div class="forum-card">
+            <div class="post-meta">
+                <div class="user-info">
+                    <div class="avatar-circle">M</div>
+                    <div>
+                        <strong>Marie_Swim92</strong>
+                        <span class="badge badge-blue">Intermédiaire</span>
+                    </div>
+                </div>
+                <small class="time-stamp">Il y a 2h</small>
+            </div>
+            <h4 class="post-title">Optimisation respiration bilatérale</h4>
+            <p class="post-excerpt">Système respiratoire instable en phase 3. Besoin de protocoles de correction pour triathlon...</p>
+            <div class="post-footer">
+                <span class="interaction"><i class="fa-regular fa-comment-dots"></i> 8 rép.</span>
+                <span class="interaction"><i class="fa-solid fa-heart"></i> 15</span>
+            </div>
+        </div>
+
+        <div class="forum-card expert-card">
+            <div class="post-meta">
+                <div class="user-info">
+                    <div class="avatar-circle expert">T</div>
+                    <div>
+                        <strong>Tri_Coach_Pro</strong>
+                        <span class="badge badge-gold">Expert</span>
+                    </div>
+                </div>
+                <small class="time-stamp">Il y a 4h</small>
+            </div>
+            <h4 class="post-title">Programme Ironman - Matrix V12</h4>
+            <p class="post-excerpt">Partage du fichier source Excel pour progression volume/intensité sur 12 cycles.</p>
+            <div class="post-footer">
+                <span class="interaction"><i class="fa-regular fa-comment-dots"></i> 23 rép.</span>
+                <span class="interaction"><i class="fa-solid fa-heart"></i> 67</span>
+            </div>
+        </div>
+    </div>
+    
+    <div class="center-btn">
+        <a href="#" class="link-neon">Accéder au Data Center complet <i class="fa-solid fa-arrow-right"></i></a>
+    </div>
+</section>
     </main>
 
    <footer>
-  <div class="footer-liste">
+    <hr>
+     <div class="footer-liste">
    
    <div class="footer-serviceClient">
      <span> Service client </span>
@@ -204,5 +305,6 @@
 
   </footer>
 <script src="assets/js/fichier.js"></script>
+<script src="assets/js/carousel.js"></script>
 </body>
 </html>
