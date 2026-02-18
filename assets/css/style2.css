@@ -1172,3 +1172,115 @@ color: #fff;
     border-radius: 2px; 
     display: block;     
 }
+
+.form-message {
+    padding: 15px 20px;
+    border-radius: 8px;
+    font-weight: 500;
+    animation: slideIn 0.3s ease;
+}
+
+.form-message.success {
+    background-color: rgba(0, 255, 136, 0.2);
+    color: #00ff88;
+    border-left: 4px solid #00ff88;
+}
+
+.form-message.error {
+    background-color: rgba(255, 0, 85, 0.2);
+    color: #ff0055;
+    border-left: 4px solid #ff0055;
+}
+
+.form-message.info {
+    background-color: rgba(0, 200, 255, 0.2);
+    color: #00c8ff;
+    border-left: 4px solid #00c8ff;
+}
+
+.ai-results-container {
+    animation: fadeInUp 0.5s ease;
+}
+
+.results-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+    padding-bottom: 20px;
+    border-bottom: 2px solid rgba(0, 255, 136, 0.3);
+}
+
+.results-header h3 {
+    margin: 0;
+    font-size: 1.8rem;
+}
+
+.btn-close-results {
+    background: none;
+    border: none;
+    color: #00c8ff;
+    font-size: 1.5rem;
+    cursor: pointer;
+    transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.btn-close-results:hover {
+    color: #ff0055;
+    transform: scale(1.2);
+}
+
+.results-content {
+    line-height: 2;
+    font-size: 1rem;
+    color: #e0e0e0;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+}
+
+.results-content h4, .results-content strong {
+    color: #00ff88;
+    font-size: 1.1rem;
+    margin-top: 15px;
+    margin-bottom: 8px;
+}
+
+.results-footer {
+    margin-top: 30px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(0, 200, 255, 0.3);
+    text-align: center;
+    color: #ff0055;
+    font-size: 0.85rem;
+}
+
+.form-loading {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    margin-left: 10px;
+    border: 3px solid rgba(0, 255, 136, 0.3);
+    border-radius: 50%;
+    border-top-color: #00ff88;
+    animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+#submit-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateX(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
