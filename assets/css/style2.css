@@ -1208,7 +1208,7 @@ color: #fff;
     align-items: center;
     margin-bottom: 25px;
     padding-bottom: 20px;
-    border-bottom: 2px solid rgba(0, 255, 136, 0.3);
+    border-bottom: 2px solid white;
 }
 
 .results-header h3 {
@@ -1248,7 +1248,7 @@ color: #fff;
 .results-footer {
     margin-top: 30px;
     padding-top: 20px;
-    border-top: 1px solid rgba(0, 200, 255, 0.3);
+    border-top: 1px solid white ;
     text-align: center;
     color: #ff0055;
     font-size: 0.85rem;
