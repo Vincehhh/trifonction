@@ -2,6 +2,9 @@
 session_start();
 header('Content-Type: application/json; charset=utf-8');
 
+require_once __DIR__ . '/../../vendor/autoload.php';
+use Michelf\Markdown;
+
 
 if (!isset($_SESSION['user_id'])) {
     http_response_code(401);
@@ -113,7 +116,7 @@ try {
     $response_data['error'] = $e->getMessage();
 }
 
-echo json_encode($response_data);
+echo json_encode($response_data, 64);
 exit();
 
 
@@ -172,7 +175,7 @@ function getStravaToken($pdo, $user_id) {
 
 function askGeminiCoachSwim($stats, $activitiesList, $experience, $swim_distance, $pool_size, $goals) {
     $apiKey = trim(GEMINI_API_KEY);
-     $url = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-pro:generateContent?key=' . trim($apiKey);
+     $url = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent?key=' . trim($apiKey);
 
     $prompt = "Tu es un coach de triathlon expérimenté, pédagogue et professionnel. ";
     $prompt .= "AVERTISSEMENTS IMPORTANTS:\n";
@@ -227,7 +230,7 @@ function askGeminiCoachSwim($stats, $activitiesList, $experience, $swim_distance
             "temperature" => 0.7,
             "topK" => 40,
             "topP" => 0.95,
-            "maxOutputTokens" => 1024
+            "maxOutputTokens" => 4096
         ]
     ];
 
@@ -243,20 +246,22 @@ function askGeminiCoachSwim($stats, $activitiesList, $experience, $swim_distance
     $http_code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
     curl_close($ch);
 
-
-if ($http_code !== 200) {
-        // On décode la réponse d'erreur de Google pour voir ce qu'il se passe
+    if ($http_code !== 200) {
         $erreur_google = json_decode($response, true);
-        $message_precis = $erreur_google['error']['message'] ?? $response; // Récupère la vraie raison
+        $message_precis = $erreur_google['error']['message'] ?? $response;
         
         return "Erreur Google (Code $http_code) : " . $message_precis;
     }
+    
     $json = json_decode($response, true);
 
     if (isset($json['candidates'][0]['content']['parts'][0]['text'])) {
-        return $json['candidates'][0]['content']['parts'][0]['text'];
+        $markdown_text = $json['candidates'][0]['content']['parts'][0]['text'];
+        // Convertir le Markdown en HTML
+        $html_text = Markdown::defaultTransform($markdown_text);
+        return $html_text;
     } else {
-        return "Erreur API: Réponse invalide.";
+        return "Erreur API: Réponse invalide. Response: " . $response;
     }
 }
 
