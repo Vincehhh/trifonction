@@ -3,3 +3,4 @@ assets/php/db_connect.php
 assets/php/config_gemini.php
 realtime-server/node_modules/
 realtime-server/.env
+vendor 

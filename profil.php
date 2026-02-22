@@ -119,7 +119,7 @@ $role = htmlspecialchars($_SESSION['role']);
               ?>
 
 
-                <?php if (!$isStravaConnected): ?>
+                <?php if ($isStravaConnected): ?>
             <a href="<?= $authUrl ?>" class="btn-strava" style="display:inline-block; background: white; width : 35% ; color: black; padding: 15px 30px; margin-bottom: 30px; text-decoration: none;text-align: center; border-radius: 5px; font-weight: bold; font-family: sans-serif;">
             Se connecter avec <span style="color: #FC4C02;   text-shadow: 
             0 0 1px rgba(233, 109, 8, 0.9); ">

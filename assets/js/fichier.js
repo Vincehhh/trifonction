@@ -96,7 +96,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     'success'
                 );
 
-                resultsContent.textContent = data.message;
+                resultsContent.innerHTML = data.message;
                 resultsDiv.style.display = 'block';
 
                 resultsDiv.scrollIntoView({ behavior: 'smooth', block: 'start' });
