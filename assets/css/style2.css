@@ -1239,8 +1239,9 @@ color: #fff;
 }
 
 .results-content h4, .results-content strong {
-    color: #00ff88;
-    font-size: 1.1rem;
+    color: #e2ece8;
+    box-shadow: 0 0 30px #ffffff;
+    font-size: 1 rem;
     margin-top: 15px;
     margin-bottom: 8px;
 }
