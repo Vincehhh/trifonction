@@ -17,17 +17,17 @@ if (!isset($_SESSION['username'])) {
 </head>
 
 <body>
- <form action="assets/php/register.php" method="POST" >
+ <form action="actions/publish-questionAction.php" method="POST" >
         <label for="title">Titre de la question</label>
-        <textarea id="title" name="title" placeholder="Titre de la question" required></textarea>
+        <textarea id="title" name="title" placeholder="Titre de la question" ></textarea>
 
         <label for="description">Description de la question</label>
-        <textarea id="description" name="description" placeholder="Description de la question" required></textarea>
+        <textarea id="description" name="description" placeholder="Description de la question" ></textarea>
 
         <label for="content">Contenu de la question</label>
-        <textarea id="content" name="content" placeholder="Contenu de la question" required></textarea>
+        <textarea id="content" name="content" placeholder="Contenu de la question" ></textarea>
         
-        <button type="submit" class="btn-signup">Publier la question</button>
+        <button type="submit" class="btn-signup" name="validate">Publier la question</button>
       </form>
 
 </body>
