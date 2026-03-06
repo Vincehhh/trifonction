@@ -6,13 +6,15 @@ if (isset($_POST['validate'])) {
         echo "All fields are required.";
         exit();
     }
-    $title = $_POST['title'];
-    $description = $_POST['description'];
-    $content = $_POST['content'];
-    $username = $_SESSION['username'];
 
-    $sql = "INSERT INTO questions (title, description, content, username) VALUES ('$title', '$description', '$content', '$username')";
-    
+    $question_title = htmlspecialchars($_POST['title']);
+    $question_description = htmlspecialchars($_POST['description']);
+    $question_content = htmlspecialchars($_POST['content']);
+    $question_date = date('Y-m-d H:i:s');
+    $question_username = $_SESSION['username'];
+
+    $sql = "INSERT INTO questions (title, description, content, date, username) VALUES ('$question_title', '$question_description', '$question_content', '$question_date', '$question_username')";
+
     if ($conn->query($sql) === TRUE) {
         header("Location: ../forum.php");
         exit();
