@@ -1,5 +1,8 @@
 <?php
 session_start();
+
+require_once 'forum/actions/questions/publish-questionAction.php';
+
 if (!isset($_SESSION['username'])) {
     header("Location: connexion.html");
     exit();
