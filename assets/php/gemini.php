@@ -29,14 +29,21 @@ $response_data = ['success' => false, 'error' => '', 'message' => ''];
 
 try {
 
-    $pool_size = isset($_POST['pool_size']) ? trim($_POST['pool_size']) : '';
-    $swim_distance = isset($_POST['swim-distance']) ? trim($_POST['swim-distance']) : '';
+    $sport = isset($_POST['sport']) ? strtolower(trim($_POST['sport'])) : '';
+    
+    if (empty($sport)) {
+        throw new Exception('Le paramètre "sport" est requis (swim ou run)');
+    }
+
+    if (!in_array($sport, ['swim', 'run'])) {
+        throw new Exception('Sport invalide. Seuls "swim" et "run" sont acceptés.');
+    }
+
     $experience = isset($_POST['experience']) ? trim($_POST['experience']) : '';
     $goals = isset($_POST['goals']) ? trim($_POST['goals']) : '';
 
-
-    if (empty($experience) || empty($swim_distance) || empty($pool_size)) {
-        throw new Exception('Tous les champs requis doivent être remplis');
+    if (empty($experience)) {
+        throw new Exception('Le niveau d\'expérience est requis');
     }
 
 
