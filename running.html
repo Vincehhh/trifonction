@@ -156,7 +156,8 @@
         <h2 class="neon-title"><i class="fa-solid fa-microchip"></i> Générateur IA</h2>
         <p class="section-desc">Générez une séance de fractionné ou de sortie longue adaptée à votre VMA.</p>
         
-        <form class="questionnaire-form">
+        <form class="questionnaire-form" action="assets/php/gemini.php" method="POST">
+            <input type="hidden" name="sport" value="run">
             <div class="form-grid">
                 <div class="form-group">
                     <label for="experience">Niveau Coureur</label>
@@ -199,7 +200,22 @@
                     <span class="btn-glow"></span>
                 </button>
             </div>
+
+            <div id="form-message" class="form-message" style="display:none; margin-top: 20px;"></div>
         </form>
+
+        <div id="ai-results" class="ai-results-container" style="display:none; margin-top: 40px;">
+            <div class="glass-container">
+                <div class="results-header">
+                    <h3 class="neon-title"><i class="fa-solid fa-sparkles"></i> Votre Programme Personnalisé</h3>
+                    <button type="button" class="btn-close-results" onclick="closeResults()">✕</button>
+                </div>
+                <div id="results-content" class="results-content"></div>
+                <div class="results-footer">
+                    <small>Disclaimer: Ce programme est généré par une IA. Consultez un médecin en cas de doute.</small>
+                </div>
+            </div>
+        </div>
     </div>
 </section>
 
