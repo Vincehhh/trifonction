@@ -62,7 +62,7 @@ document.addEventListener('DOMContentLoaded', function() {
     form.addEventListener('submit', async function(e) {
         e.preventDefault();
 
-        const submitBtn = document.getElementById('submit-btn');
+        const submitBtn = form.querySelector('[type="submit"]');
         const messageDiv = document.getElementById('form-message');
         const resultsDiv = document.getElementById('ai-results');
         const resultsContent = document.getElementById('results-content');

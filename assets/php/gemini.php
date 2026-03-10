@@ -32,11 +32,11 @@ try {
     $sport = isset($_POST['sport']) ? strtolower(trim($_POST['sport'])) : '';
     
     if (empty($sport)) {
-        throw new Exception('Le paramètre "sport" est requis (swim ou run)');
+        throw new Exception('Le paramètre "sport" est requis');
     }
 
-    if (!in_array($sport, ['swim', 'run'])) {
-        throw new Exception('Sport invalide. Seuls "swim" et "run" sont acceptés.');
+    if (!in_array($sport, ['swim', 'run', 'bike'])) {
+        throw new Exception('Sport invalide. Acceptés: swim, run, bike');
     }
 
     $experience = isset($_POST['experience']) ? trim($_POST['experience']) : '';
@@ -46,24 +46,8 @@ try {
         throw new Exception('Le niveau d\'expérience est requis');
     }
 
-
-    $valid_experience = ['debutant', 'intermediaire', 'avance', 'expert'];
-    $valid_distance = ['short', 'medium', 'long', 'ultra'];
-    $valid_pool = ['25m', '50m', 'eau-libre'];
-
-    if (!in_array($experience, $valid_experience)) {
-        throw new Exception('Niveau de natation invalide');
-    }
-    if (!in_array($swim_distance, $valid_distance)) {
-        throw new Exception('Distance objectif invalide');
-    }
-    if (!in_array($pool_size, $valid_pool)) {
-        throw new Exception('Taille du bassin invalide');
-    }
-
-
     if (strlen($goals) > 500) {
-        throw new Exception('Les paramètres de mission doivent faire moins de 500 caractères');
+        throw new Exception('Les paramètres doivent faire moins de 500 caractères');
     }
 
     $quota_result = checkAndUpdateQuota($pdo, $user_id);
@@ -80,13 +64,29 @@ try {
         throw new Exception('Données Strava indisponibles. Assurez-vous que votre compte est connecté.');
     }
 
+    // Récupérer les paramètres optionnels selon le sport
+    $sport_params = [];
+    if ($sport === 'swim') {
+        $sport_params = [
+            'distance' => isset($_POST['swim-distance']) ? $_POST['swim-distance'] : '',
+            'pool_size' => isset($_POST['pool_size']) ? $_POST['pool_size'] : ''
+        ];
+    } elseif ($sport === 'run') {
+        $sport_params = [
+            'distance' => isset($_POST['run-distance']) ? $_POST['run-distance'] : ''
+        ];
+    } elseif ($sport === 'bike') {
+        $sport_params = [
+            'distance' => isset($_POST['bike-distance']) ? $_POST['bike-distance'] : ''
+        ];
+    }
 
-    $gemini_response = askGeminiCoachSwim(
+    $gemini_response = askGeminiCoach(
+        $sport,
         $stats,
         $activitiesList,
         $experience,
-        $swim_distance,
-        $pool_size,
+        $sport_params,
         $goals
     );
 
@@ -96,16 +96,16 @@ try {
 
     $stmt = $pdo->prepare("
         INSERT INTO generated_plans (user_id, sport, level_input, goal_input, generated_result, created_at)
-        VALUES (:user_id, 'swim', :level, :goals, :result, NOW())
+        VALUES (:user_id, :sport, :level, :goals, :result, NOW())
     ");
 
     $stmt->execute([
         ':user_id' => $user_id,
+        ':sport' => $sport,
         ':level' => $experience,
         ':goals' => $goals,
         ':result' => json_encode([
-            'pool_size' => $pool_size,
-            'swim_distance' => $swim_distance,
+            'sport_params' => $sport_params,
             'experience' => $experience,
             'response' => $gemini_response,
             'timestamp' => date('Y-m-d H:i:s')
@@ -180,9 +180,9 @@ function getStravaToken($pdo, $user_id) {
     }
 }
 
-function askGeminiCoachSwim($stats, $activitiesList, $experience, $swim_distance, $pool_size, $goals) {
+function askGeminiCoach($sport, $stats, $activitiesList, $experience, $sport_params, $goals) {
     $apiKey = trim(GEMINI_API_KEY);
-     $url = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent?key=' . trim($apiKey);
+    $url = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent?key=' . trim($apiKey);
 
     $prompt = "Tu es un coach de triathlon expérimenté, pédagogue et professionnel. ";
     $prompt .= "AVERTISSEMENTS IMPORTANTS:\n";
@@ -191,39 +191,84 @@ function askGeminiCoachSwim($stats, $activitiesList, $experience, $swim_distance
     $prompt .= "- Adapte toujours le programme à ta condition physique.\n\n";
 
     $prompt .= "PROFIL DE L'ATHLÈTE:\n";
+    $prompt .= "- Sport: " . ucfirst($sport) . "\n";
     $prompt .= "- Niveau: " . ucfirst($experience) . "\n";
-    $prompt .= "- Distance objectif: " . translateSwimDistance($swim_distance) . "\n";
-    $prompt .= "- Bassin d'entraînement: " . $pool_size . "\n";
-    $prompt .= "- Paramètres spécifiques: " . (!empty($goals) ? $goals : "Aucun spécifié") . "\n\n";
-
-    $lastSwim = null;
-    if (!empty($activitiesList)) {
-        foreach ($activitiesList as $activity) {
-            if (isset($activity['type']) && $activity['type'] === 'Swim') {
-                $lastSwim = $activity;
-                break;
+    
+    if ($sport === 'swim') {
+        $distance = $sport_params['distance'] ?? '';
+        $pool_size = $sport_params['pool_size'] ?? '';
+        $prompt .= "- Distance objectif: " . translateSwimDistance($distance) . "\n";
+        $prompt .= "- Bassin d'entraînement: " . $pool_size . "\n";
+        
+        $lastActivity = null;
+        if (!empty($activitiesList)) {
+            foreach ($activitiesList as $activity) {
+                if (isset($activity['type']) && $activity['type'] === 'Swim') {
+                    $lastActivity = $activity;
+                    break;
+                }
             }
         }
+        if ($lastActivity) {
+            $dist = round($lastActivity['distance'] / 1000, 2);
+            $time = gmdate("H:i:s", $lastActivity['moving_time']);
+            $prompt .= "- Dernière séance: " . $dist . "km en " . $time . "\n";
+        }
+        
+    } elseif ($sport === 'run') {
+        $distance = $sport_params['distance'] ?? '';
+        $prompt .= "- Distance objectif: " . $distance . "\n";
+        
+        $lastActivity = null;
+        if (!empty($activitiesList)) {
+            foreach ($activitiesList as $activity) {
+                if (isset($activity['type']) && $activity['type'] === 'Run') {
+                    $lastActivity = $activity;
+                    break;
+                }
+            }
+        }
+        if ($lastActivity) {
+            $dist = round($lastActivity['distance'] / 1000, 2);
+            $time = gmdate("H:i:s", $lastActivity['moving_time']);
+            $prompt .= "- Dernière séance: " . $dist . "km en " . $time . "\n";
+        }
+        
+    } elseif ($sport === 'bike') {
+        $distance = $sport_params['distance'] ?? '';
+        $prompt .= "- Format de course: " . $distance . "\n";
+        
+        $lastActivity = null;
+        if (!empty($activitiesList)) {
+            foreach ($activitiesList as $activity) {
+                if (isset($activity['type']) && $activity['type'] === 'Ride') {
+                    $lastActivity = $activity;
+                    break;
+                }
+            }
+        }
+        if ($lastActivity) {
+            $dist = round($lastActivity['distance'] / 1000, 2);
+            $time = gmdate("H:i:s", $lastActivity['moving_time']);
+            $prompt .= "- Dernière séance: " . $dist . "km en " . $time . "\n";
+        }
     }
-
-    if ($lastSwim) {
-        $dist = round($lastSwim['distance'] / 1000, 2);
-        $time = gmdate("H:i:s", $lastSwim['moving_time']);
-        $prompt .= "- Dernière séance: " . $dist . "km en " . $time . "\n";
-    }
+    
+    $prompt .= "- Paramètres spécifiques: " . (!empty($goals) ? $goals : "Aucun spécifié") . "\n\n";
 
     if (is_array($stats)) {
         $runKm = isset($stats['all_run_totals']['distance']) ? round($stats['all_run_totals']['distance'] / 1000, 0) : 0;
         $bikeKm = isset($stats['all_ride_totals']['distance']) ? round($stats['all_ride_totals']['distance'] / 1000, 0) : 0;
         $swimKm = isset($stats['all_swim_totals']['distance']) ? round($stats['all_swim_totals']['distance'] / 1000, 0) : 0;
+        $prompt .= "ENTRAÎNEMENT GLOBAL:\n";
         $prompt .= "- Totaux saison: Natation " . $swimKm . "km | Vélo " . $bikeKm . "km | Course " . $runKm . "km\n\n";
     }
 
     $prompt .= "CONSIGNES:\n";
-    $prompt .= "1. Donne-moi une analyse très brève de ma forme actuelle (1 phrase max).\n";
+    $prompt .= "1. Analyse ma forme actuelle (1 phrase max).\n";
     $prompt .= "2. Propose-moi UNE séance optimisée pour demain.\n";
     $prompt .= "3. Détaille: échauffement, corps de séance, retour au calme.\n";
-    $prompt .= "4. Donne des fois et distances précises.";
+    $prompt .= "4. Donne des durées et distances précises.";
 
     $data = [
         "contents" => [
@@ -256,7 +301,6 @@ function askGeminiCoachSwim($stats, $activitiesList, $experience, $swim_distance
     if ($http_code !== 200) {
         $erreur_google = json_decode($response, true);
         $message_precis = $erreur_google['error']['message'] ?? $response;
-        
         return "Erreur Google (Code $http_code) : " . $message_precis;
     }
     
@@ -264,7 +308,6 @@ function askGeminiCoachSwim($stats, $activitiesList, $experience, $swim_distance
 
     if (isset($json['candidates'][0]['content']['parts'][0]['text'])) {
         $markdown_text = $json['candidates'][0]['content']['parts'][0]['text'];
-        // Convertir le Markdown en HTML
         $html_text = Markdown::defaultTransform($markdown_text);
         return $html_text;
     } else {
