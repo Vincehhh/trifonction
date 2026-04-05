@@ -182,7 +182,7 @@ function getStravaToken($pdo, $user_id) {
 
 function askGeminiCoach($sport, $stats, $activitiesList, $experience, $sport_params, $goals) {
     $apiKey = trim(GEMINI_API_KEY);
-    $url = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent?key=' . trim($apiKey);
+    $url = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-3.1-flash-lite-preview:generateContent?key=' . trim($apiKey);
 
     $prompt = "Tu es un coach de triathlon expérimenté, pédagogue et professionnel. ";
     $prompt .= "AVERTISSEMENTS IMPORTANTS:\n";

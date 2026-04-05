@@ -1,6 +1,6 @@
 <?php
 $host = 'localhost';
-$dbname = 'trifonction_db';
+$dbname = 'tritri';
 $username = 'root';
 $password = '';     
 
